@@ -1,0 +1,23 @@
+---
+title: "Telematics Data Analysis"
+author: "James Owers, Machine Learning MSc."
+date: "12 February 2015"
+output: html_document
+---
+
+
+```{r}
+setwd("~/Dropbox/UCL/UCLOL/Telematics/data")
+lazyLoad("working/plotDurations_8bc919d85ed780760f42294b5f7588ec")
+median.quartile <- function(x){
+  out <- quantile(x, probs = seq(0,1,0.1))
+  names(out) <- c("ymin","y","ymax")
+  return(out) 
+}
+
+qplot(driverID, durations, data=plotdf, geom="violin",
+      colour=driverID, main="Density plots of 9 separate driver trip durations") +
+    stat_summary(fun.y=median.quartile,geom='point')
+
+```
+
